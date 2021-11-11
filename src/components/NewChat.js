@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from "react";
 import './NewChat.css';
 
-import Api from '../Api'
-
+import Api from '../Api';
+import Swal from 'sweetalert2';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 export default ({user,chatlist, show, setShow}) => {
     const [list, setList] = useState([]);
 
+    function SweetAlert2(){
+        Swal.fire({
+            title: 'Sucesso!',
+            text: 'Conversa criada com Sucesso',
+            icon: 'success',
+            confirmButtonText: 'confirmar'
+          })
+    }
+    
     useEffect(()=> {
         const getList = async () => {
             if(user !== null){
@@ -20,7 +29,7 @@ export default ({user,chatlist, show, setShow}) => {
 
     const addNewChat = async (user2) => {
         await Api.addNewChat(user, user2);
-
+        SweetAlert2();
         handleClose();
     }
 
@@ -38,6 +47,7 @@ export default ({user,chatlist, show, setShow}) => {
             <div className="newChat--list">
                 {list.map((item, key)=>(
                     <div onClick={() => addNewChat(item)} className="newChat--item" key={key}>
+
                         <img className="newChat--itemavatar" src={item.avatar} alt="" />
                         <div className="newChat--itemname">{item.name}</div>
                     </div>

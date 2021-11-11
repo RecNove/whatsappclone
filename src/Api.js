@@ -80,20 +80,22 @@ export default {
             })
         });
     },
-    onChatList: (userId, setChatList) => {
-
-        return db.collection('users').doc(userId).onSnapshot((doc) => {
-            if (doc.exists) {
+    onChatList:(userId, setChatList) => {
+        return db.collection('users').doc(userId).onSnapshot((doc)=>{
+            if(doc.exists) {
                 let data = doc.data();
-                if (data.chats) {
-                    let chats=[... data.chats];
+                if(data.chats) {
+                    let chats = [...data.chats];
                     chats.sort((a,b)=>{
-                        if(a.lastMessageDate===undefined && b.lastMessageDate===undefined ){
+                        if(a.lastMessageDate === undefined) {
                             return -1;
                         }
-                        if(a.lastMessageDate.seconds < b.lastMessageDate.seconds){
+                        if (b.lastMessageDate === undefined) {
+                            return -1;
+                        }
+                        if (a.lastMessageDate.seconds < b.lastMessageDate.seconds) {
                             return 1;
-                        }else{
+                        } else {
                             return -1;
                         }
                     });
@@ -102,8 +104,6 @@ export default {
             }
         });
     },
-
-   
     onChatContent: (chatId, setList, setUsers) => {
         return db.collection('chats').doc(chatId).onSnapshot((doc)=>{
             if(doc.exists){
