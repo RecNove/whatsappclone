@@ -18,7 +18,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 export default () => {
-
+  
   const [chatlist, setChatList] = useState([]);
   const [activeChat, setActiveChat] = useState({});
   const [user, setUser] = useState(null);
@@ -33,6 +33,25 @@ export default () => {
       imageWidth: 400,
       imageHeight: 200,
       imageAlt: 'Custom image',
+    })
+  }
+
+  function Logado(){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title: 'Logado com successo!'
     })
   }
 
@@ -72,6 +91,7 @@ export default () => {
   }, [darkMode])
 
     const handleLoginData = async (u) => {
+      Logado();
       let newUser = { 
         id: u.uid,
         name: u.displayName,
