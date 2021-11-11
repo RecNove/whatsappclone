@@ -3,6 +3,7 @@ import './App.css';
 import './components/Login.css'
 
 import Api from './Api';
+import Swal from 'sweetalert2';
 
 import ChatListItem from './components/ChatListItem';
 import ChatIntro from './components/ChatIntro';
@@ -23,6 +24,17 @@ export default () => {
   const [user, setUser] = useState(null);
   const [showNewChat, setShowNewChat] = useState(false);
   const [darkMode, setDarkMode] = useState(false)
+
+  function SweetAvatar(){
+    Swal.fire({
+      title: user.name,
+      text: 'Sua foto de perfil!',
+      imageUrl: user.avatar,
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Custom image',
+    })
+  }
 
   useEffect(()=> {
     if (user !== null){
@@ -83,7 +95,7 @@ export default () => {
           setShow = {setShowNewChat}
          />
           <header>
-            <img className="header--avatar" src={user.avatar} alt="" />
+            <img className="header--avatar" onClick={function(){SweetAvatar();}} src={user.avatar} alt="" />
             <div className="header--buttons">
             <div onClick={handleDarkMode} className="header--btn">
                   <Brightness4Icon style={{color: '#919191'}}/>

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+
 import './MessageItem.css';
 
 export default ({user, data}) => {

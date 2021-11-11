@@ -3,6 +3,7 @@ import EmojiPicker from 'emoji-picker-react';
 import './ChatWindow.css';
 
 import Api from '../Api';
+import Swal from 'sweetalert2';
 
 import MessageItem from './MessageItem';
 
@@ -25,12 +26,21 @@ export default ({user, data}) => {
         recognition = new SpeechRecognition();
     }
 
-
     const [emojiOpen, setEmojiOpen] = useState(false);
     const [text, setText] = useState ('');
     const [listening, setListening] = useState (false);
     const [list, setList] = useState ([]);
     const [users, setUsers] = useState([]);
+
+    function SweetChatAvatar(){
+        Swal.fire({
+          title: data.title,
+          imageUrl: data.image,
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'Custom image',
+        })
+      }
 
     useEffect(()=>{
         setList([]);
@@ -87,7 +97,7 @@ export default ({user, data}) => {
             <div className="chatWindow--header">
 
                 <div className="chatWindow--headerinfo">
-                    <img src={data.image} alt="" className="chatWindow--avatar" />
+                    <img src={data.image} alt="" onClick={function(){SweetChatAvatar();}} className="chatWindow--avatar" />
                     <div className="chatWindow--name">{data.title}</div>
                 </div>
 

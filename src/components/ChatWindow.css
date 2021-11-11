@@ -88,7 +88,7 @@
     background-color: var(--other-color3);
     border-radius: 20px;
     font-size: 15px;
-    color: #4a4a4a;
+    color: var(--other-color5);
     padding-left: 15px;
 }
 
