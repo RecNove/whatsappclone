@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 body{
-  background-color: #d2dbdc;
+  background-color: var(--main-color);
   margin: 0;
   font-family: 'Segoe UI', Helvetica Neue, Helvetica, Lucida Grande, Arial;
 }
@@ -10,7 +10,7 @@ body{
 .app-window{
   display: flex;
   height: 100vh;
-  background-color: #EDEDED;
+  background-color: var(--secondary-color);
 }
 
 .sidebar{
@@ -18,7 +18,7 @@ body{
   max-width: 415px;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #DDD;
+  border-right: 1px solid var(--tertiary-color);
 }
 header{
   height: 60px;
@@ -50,13 +50,13 @@ header{
 }
 
 .search {
-  background-color: #F6F6F6;
-  border-bottom: 1px solid #EEE;
+  background-color: var(--other-color);
+  border-bottom: 1px solid var(--other-color2);
   padding: 5px 15px;
 }
 
 .search--input {
-  background-color: #FFF;
+  background-color: var(--other-color3);
   height: 40px;
   border-radius: 20px;
   display: flex;
@@ -74,7 +74,7 @@ header{
 
 .chatlist {
   flex: 1;
-  background-color: #FFF;
+  background-color: var(--other-color3);
   overflow-y: auto;
 }
 

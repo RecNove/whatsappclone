@@ -6,11 +6,11 @@
 }
 
 .chatListItem:hover {
-    background-color: #F5F5F5;
+    background-color: var(--other-color6);
 }
 
 .chatListItem.active {
-    background-color: #EBEBEB;
+    background-color: var(--other-color8);
 }
 
 .chatListItem--avatar {
@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-bottom: 1px solid #EEE;
+    border-bottom: 1px solid var(--other-color7);
     padding-right: 15px;
     margin-left: 15px;
 
@@ -43,7 +43,7 @@
 
 .chatListItem--name {
     font-size: 17px;
-    color: #000;
+    color: var(--other-color5);
 }
 
 .chatListItem--date {

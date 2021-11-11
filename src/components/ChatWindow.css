@@ -6,7 +6,6 @@
 
 .chatWindow--header {
     height: 60px;
-    border-bottom: 1px solid #CCC;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,7 +27,7 @@
 
 .chatWindow--name {
     font-size: 17px;
-    color: #000;
+    color: var(--other-color5);
 }
 
 .chatWindow--headerbuttons {
@@ -53,7 +52,7 @@
     background-color: #E5DDD5;
     background-size: cover;
     background-position: top;
-    background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+    background-image: var(--background);
     padding: 20px 30px;
 }
 
@@ -86,7 +85,7 @@
     height: 40px;
     border: 0;
     outline: 0;
-    background-color: #fff;
+    background-color: var(--other-color3);
     border-radius: 20px;
     font-size: 15px;
     color: #4a4a4a;

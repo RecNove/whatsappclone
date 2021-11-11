@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import './ChatWindow.css';
 
+import Api from '../Api';
+
 import MessageItem from './MessageItem';
 
 import SearchIcon from '@material-ui/icons/Search';
@@ -27,30 +29,14 @@ export default ({user, data}) => {
     const [emojiOpen, setEmojiOpen] = useState(false);
     const [text, setText] = useState ('');
     const [listening, setListening] = useState (false);
-    const [list, setList] = useState ([
-        {author: 123, body: 'bla bla bla'},
-        {author: 123, body: 'bla bla bla bla '},
-        {author: 1234, body: 'bla bla bla bla bla'},
-        {author: 123, body: 'bla bla bla'},
-        {author: 123, body: 'bla bla bla bla '},
-        {author: 1234, body: 'bla bla bla bla bla'},
-        {author: 123, body: 'bla bla bla'},
-        {author: 123, body: 'bla bla bla bla '},
-        {author: 1234, body: 'bla bla bla bla bla'},
-        {author: 123, body: 'bla bla bla'},
-        {author: 123, body: 'bla bla bla bla '},
-        {author: 1234, body: 'bla bla bla bla bla'},
-        {author: 123, body: 'bla bla bla'},
-        {author: 123, body: 'bla bla bla bla '},
-        {author: 1234, body: 'bla bla bla bla bla'},
-        {author: 123, body: 'bla bla bla'},
-        {author: 123, body: 'bla bla bla bla '},
-        {author: 1234, body: 'bla bla bla bla bla'},
-        {author: 123, body: 'bla bla bla'},
-        {author: 123, body: 'bla bla bla bla '},
-        {author: 1234, body: 'bla bla bla bla bla'}
-        
-    ]);
+    const [list, setList] = useState ([]);
+    const [users, setUsers] = useState([]);
+
+    useEffect(()=>{
+        setList([]);
+        let unsub = Api.onChatContent(data.chatId, setList, setUsers);
+        return unsub;
+    }, [data.chatId]);
 
     useEffect(()=>{
         if(body.current.scrollHeight > body.current.offsetHeight){
@@ -83,8 +69,17 @@ export default ({user, data}) => {
             recognition.start();
         }
     }
+    const handleInputKeyUp = (e) =>{
+        if(e.keyCode == 13){
+            handleSendClick();
+        }
+    }
     const handleSendClick = () => {
-        
+        if(text !== ''){
+            Api.sendMessage(data, user.id, 'text', text, users);
+            setText('');
+            setEmojiOpen(false);
+        }
     }
 
     return (
@@ -92,8 +87,8 @@ export default ({user, data}) => {
             <div className="chatWindow--header">
 
                 <div className="chatWindow--headerinfo">
-                    <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="" className="chatWindow--avatar" />
-                    <div className="chatWindow--name">Cleiton Rasta</div>
+                    <img src={data.image} alt="" className="chatWindow--avatar" />
+                    <div className="chatWindow--name">{data.title}</div>
                 </div>
 
                 <div className="chatWindow--headerbuttons">
@@ -145,6 +140,7 @@ export default ({user, data}) => {
                             placeholder='Digite uma mensagem'
                             value={text}
                             onChange={e=>setText(e.target.value)} 
+                            onKeyUp={handleInputKeyUp}
                     />
                 </div>
                 <div className="chatWindow--pos">
