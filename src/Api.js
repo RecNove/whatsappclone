@@ -113,7 +113,7 @@ export default {
             }
         });
     },
-    sendMessage:async (chatData, userId, type, body, users) => {
+    sendMessage:async (chatData, userId, type, body, gif,users) => {
         let now = new Date();
 
         db.collection('chats').doc(chatData.chatId).update({

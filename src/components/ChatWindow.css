@@ -106,8 +106,18 @@
 aside.emoji-picker-react {
     width: auto;
     background: none;
+    border: none;
 }
 
 .emoji-picker-react .emoji-group:before {
     background: none;
+}
+.gifpicker-container{
+    position:inherit;
+    width: 100% !important;
+}
+.chatWindow--gifarea {
+    height: 200px;
+    overflow-y: hidden;
+    transition: all ease 0.3s;
 }

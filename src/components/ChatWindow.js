@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import EmojiPicker from 'emoji-picker-react';
+import GifPicker from 'react-twitter-gifpicker';
+import Swal from 'sweetalert2';
+
 import './ChatWindow.css';
 
 import Api from '../Api';
-import Swal from 'sweetalert2';
 
 import MessageItem from './MessageItem';
 
@@ -11,9 +13,12 @@ import SearchIcon from '@material-ui/icons/Search';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import GifIcon from '@material-ui/icons/Gif';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
 import MicIcon from '@material-ui/icons/Mic';
+import LabelIcon from '@material-ui/icons/Label';
+import { VisibilityRounded } from '@material-ui/icons';
 
 
 export default ({user, data}) => {
@@ -26,6 +31,7 @@ export default ({user, data}) => {
         recognition = new SpeechRecognition();
     }
 
+    const [open, setOpen] = useState(false);
     const [emojiOpen, setEmojiOpen] = useState(false);
     const [text, setText] = useState ('');
     const [listening, setListening] = useState (false);
@@ -58,6 +64,19 @@ export default ({user, data}) => {
         setText( text + emojiObject.emoji);
     }
 
+    const onPickGif = (gif, e) => {
+        console.log(gif);
+     setText( text + gif.url); 
+    /*  if(gif !== ''){
+        Api.sendMessage(data, user.id, 'text', text,gif,users);
+        setText('')}  */
+    }
+    const handleOpenGif = () => {
+        setOpen(true);
+    }
+    const handleCloseGif = () => {
+        setOpen(false);
+    }
     const handleOpenEmoji = () => {
         setEmojiOpen(true);
     }
@@ -130,9 +149,21 @@ export default ({user, data}) => {
                     onEmojiClick={handleEmojiClick}
                     disableSearchBar
                     disableSkinTonePicker
-                />
+            />
             </div>
-
+            <div className="chatWindow--gifarea"
+            style={{height: open ? '200px' : '0px'}}>
+            <GifPicker
+                api_key={'wE42l5Au3DRu5K7ciJpHYXHdagmroGzN'}
+                borderRadius={0}
+                columns={4}
+                open={open}
+                onClose={() => setOpen(false)}
+                onGifClick={onPickGif}
+                onPickClose={false}
+                topBarColor={'#4ADF83'}
+            />
+            </div>
             <div className="chatWindow--footer">
                 <div className="chatWindow--pre">
 
@@ -142,7 +173,15 @@ export default ({user, data}) => {
                 <div className="chatWindow--btn" onClick={handleOpenEmoji}>
                     <InsertEmoticonIcon style= {{color: emojiOpen?'#009688':'#919191'}} />
                 </div>
-
+                <div className="chatWindow--btn">
+                    <GifIcon 
+                    onClick={() => setOpen(true)}
+                    style= {{color: open?'#009688':'#919191'}} 
+                    />
+                </div>
+                <div className="chatWindow--btn">
+                    <LabelIcon style= {{color: '#919191'}} />
+                </div>
                 </div>
                 <div className="chatWindow--inputarea">
                     <input className='chatWindow--input'
@@ -169,4 +208,4 @@ export default ({user, data}) => {
             </div>
         </div>
     );
-}
+ }
